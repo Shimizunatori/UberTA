@@ -9,6 +9,9 @@ public class DrawLine : MonoBehaviour
     [Range(0.1f, 0.5f)]
     [SerializeField,Header("ê¸ÇÃïù")] private float lineWidth;
 
+    private Vector3 mousePos;
+    private Vector3 worldPos;
+
     private int inputCount = 0;
     [SerializeField]
     private GameObject startPosObj;
@@ -19,7 +22,7 @@ public class DrawLine : MonoBehaviour
 
     GameObject lineObj;
     LineRenderer lineRenderer;
-    List<Vector2> linePoints;
+    public List<Vector2> linePoints;
 
     Vector3[] positions;
     // Start is called before the first frame update
@@ -58,7 +61,7 @@ public class DrawLine : MonoBehaviour
             positions[1] = endPosObj.transform.position;
             inputCount++;
             _addLineObject();
-            _addPositionDataToLineRenderer();
+            //_addPositionDataToLineRenderer();
         }
         if (Input.GetMouseButton(0))
         {
@@ -93,8 +96,8 @@ public class DrawLine : MonoBehaviour
 
     private void _addPositionDataToLineRenderer()
     {
-        Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1.0f);
-        Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+        mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1.0f);
+        worldPos = Camera.main.ScreenToWorldPoint(mousePos);
 
 
         lineRenderer.positionCount += 1;
@@ -107,6 +110,12 @@ public class DrawLine : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         inputCount = 0;
+        //for (int i = 0; i <= linePoints[]; i++)
+        //{
+        //    linePoints.RemoveAt(0);
+        //    yield return new WaitForSeconds(1);
+        //}
+        lineRenderer.positionCount = 0;
         Destroy(lineObj);
     }
 }
