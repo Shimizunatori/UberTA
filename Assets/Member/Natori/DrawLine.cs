@@ -8,20 +8,20 @@ public class DrawLine : MonoBehaviour
     [SerializeField,Header("線の色")] private Color lineColor;
     [Range(0.1f, 0.5f)]
     [SerializeField,Header("線の幅")] private float lineWidth;
+    [SerializeField] private GameObject _player;
 
     private Vector3 mousePos;
     private Vector3 worldPos;
 
     private int inputCount = 0;
-    [SerializeField]
-    private GameObject startPosObj;
-    [SerializeField]
-    private GameObject endPosObj;
+
+    [SerializeField] private GameObject startPosObj;
+    [SerializeField] private GameObject endPosObj;
     private Vector3 mousePos1;
     private Vector3 mousePos2;
 
     GameObject lineObj;
-    LineRenderer lineRenderer;
+    public LineRenderer lineRenderer;
     public List<Vector2> linePoints;
 
     Vector3[] positions;
@@ -70,6 +70,7 @@ public class DrawLine : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
+            _player.GetComponent<PlayerController>()._moveFlag = true;
             StartCoroutine(EraseLine());
             inputCount++;
         }
@@ -106,16 +107,36 @@ public class DrawLine : MonoBehaviour
         linePoints.Add(worldPos);
     }
 
+    public void RemoveVertex(int indexToRemove)
+    {
+        int vertexCount = lineRenderer.positionCount;
+        List<Vector3> positions = new List<Vector3>();
+
+        for (int i = 0; i < vertexCount; i++)
+        {
+            positions.Add(lineRenderer.GetPosition(i));
+        }
+
+        positions.RemoveAt(indexToRemove);
+
+        // LineRendererに新しい頂点リストを設定
+        // こうしないと次の頂点を削除できない
+        lineRenderer.positionCount = positions.Count;
+        lineRenderer.SetPositions(positions.ToArray());
+    }
+
     private IEnumerator EraseLine()
     {
         yield return new WaitForSeconds(1);
         inputCount = 0;
-        //for (int i = 0; i <= linePoints[]; i++)
-        //{
-        //    linePoints.RemoveAt(0);
-        //    yield return new WaitForSeconds(1);
-        //}
-        lineRenderer.positionCount = 0;
+        int n = linePoints.Count;
+        for (int i = 0; i <= n - 1; i++)
+        {
+            RemoveVertex(0);
+            linePoints.RemoveAt(0);
+            yield return new WaitForSeconds(0.2f);
+        }
         Destroy(lineObj);
+        _player.GetComponent<PlayerController>()._moveFlag = false;
     }
 }

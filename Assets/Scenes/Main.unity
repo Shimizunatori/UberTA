@@ -282,8 +282,9 @@ GameObject:
   m_Component:
   - component: {fileID: 774714594}
   - component: {fileID: 774714593}
+  - component: {fileID: 774714595}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -356,6 +357,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &774714595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774714592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5acf78ac85cb834e8cd891b147a3613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 5
+  _drawL: {fileID: 1230200694}
+  _moveFlag: 0
 --- !u!1 &1230200693
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,8 +404,11 @@ MonoBehaviour:
   lineMaterial: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   lineColor: {r: 1, g: 1, b: 1, a: 0}
   lineWidth: 0.1
+  _player: {fileID: 774714592}
   startPosObj: {fileID: 1451552165}
   endPosObj: {fileID: 558880962}
+  lineRenderer: {fileID: 0}
+  linePoints: []
 --- !u!4 &1230200695
 Transform:
   m_ObjectHideFlags: 0
