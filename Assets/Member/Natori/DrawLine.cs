@@ -40,6 +40,7 @@ public class DrawLine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (_player.GetComponent<PlayerController>()._clearFlag) return;
         if (Input.GetMouseButtonDown(0) && inputCount == 0)
         {
             Debug.Log("startˆÊ’u");
@@ -132,11 +133,14 @@ public class DrawLine : MonoBehaviour
         int n = linePoints.Count;
         for (int i = 0; i <= n - 1; i++)
         {
+            if (i == n - 1)
+            {
+                _player.GetComponent<PlayerController>()._moveFlag = false;
+            }
             RemoveVertex(0);
             linePoints.RemoveAt(0);
             yield return new WaitForSeconds(0.2f);
         }
         Destroy(lineObj);
-        _player.GetComponent<PlayerController>()._moveFlag = false;
     }
 }

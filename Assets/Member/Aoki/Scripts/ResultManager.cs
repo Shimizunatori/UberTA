@@ -16,11 +16,16 @@ public class ResultManager : MonoBehaviour
     Color defaultColor = Color.white;
     [SerializeField]
     Color highlightColor = Color.yellow;
+    [SerializeField]
+    PlayerController player;
 
     private List<float> bestTimes = new List<float>();
 
+    public int touchCount;
+
     public void ShowResult(float currentTime)
     {
+        player.GetComponent<PlayerController>()._clearFlag = true;
         resultPanel.SetActive(true);
 
         bestTimes.Add(currentTime);

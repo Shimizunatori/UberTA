@@ -25,6 +25,11 @@ public class Timer : MonoBehaviour
         isRunning = false;
     }
 
+    public void StartTimer()
+    {
+        isRunning = true;
+    }
+
     public void ResetTimer()
     {
         time = 0f;

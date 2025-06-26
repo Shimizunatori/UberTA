@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private DrawLine _drawL;
     public bool _moveFlag = false;
+    public bool _clearFlag = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,8 +18,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!_moveFlag) return;
+        if (!_moveFlag || _clearFlag) return;
         var _dest = _drawL.GetComponent<DrawLine>().lineRenderer.GetPosition(0);
+        if (_dest == null) return;
         transform.position = Vector2.MoveTowards(transform.position, _dest, _speed * Time.deltaTime);
     }
 }
